@@ -16,6 +16,8 @@ import com.bc.cliente.entity.*;
 import com.google.gson.Gson;
 
 import java.util.List;
+
+import javax.persistence.Embeddable;
 @RestController
 @RequestMapping(value = "/api")
 public class indexController {
@@ -24,36 +26,52 @@ public class indexController {
 	
 	
 	@GetMapping(value = "/getClientes", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getAlumnos() {
-		List<AlumnosBD> lista = dato.findAll();
+	public String getcliente() {
+		List<ClienteBD> lista = dato.findAll();
 		
 		Gson gson = new Gson();
 		return gson.toJson(lista);
 	}
+	
+	@GetMapping(value = "/getClientes/{idcliente}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ClienteBD getCliente(@PathVariable int idcliente) {
+	
+			
+		return dato.findById(idcliente);
+	}
+
+	
 	@PostMapping(value ="/clientes", consumes  = MediaType.APPLICATION_JSON_VALUE)
 	
 	@ResponseBody
-		public AlumnosBD INSERTAR (@RequestBody AlumnosBD alumno)  {
+		public ClienteBD INSERTAR (@RequestBody ClienteBD cliente)  {
 			
 			
-		return dato.save(alumno);
+		return dato.save(cliente);
 		}
 	
 	
 	
-	@PutMapping (value = "/putAlumnos/{id_alumno}", consumes = MediaType.APPLICATION_JSON_VALUE, produces  = MediaType.APPLICATION_JSON_VALUE)
-	public AlumnosBD update(@PathVariable int id_alumno, @RequestBody AlumnosBD alumno) {
-	    AlumnosBD alumnoToUpdate = dato.findById(id_alumno);
-	    if (alumnoToUpdate != null) {
-	        alumnoToUpdate.setPrimernombre(alumno.getPrimernombre());
-	        alumnoToUpdate.setSegundonombre(alumno.getSegundonombre());
-	        alumnoToUpdate.setSegundoapellido(alumno.getSegundoapellido());
-	        alumnoToUpdate.setSueldo(alumno.getSueldo());
-	        alumnoToUpdate.setCorreo(alumno.getCorreo());
-	        alumnoToUpdate.setSegmento(alumno.getSegmento());
-	       
-	        
-	        return dato.update(alumnoToUpdate);
+	@PutMapping (value = "/putCliente/{idcliente}", consumes = MediaType.APPLICATION_JSON_VALUE, produces  = MediaType.APPLICATION_JSON_VALUE)
+	public ClienteBD update(@PathVariable int idcliente, @RequestBody ClienteBD cliente) {
+	    ClienteBD clienteToUpdate = dato.findById(idcliente);
+	    if (clienteToUpdate != null) {
+	    	clienteToUpdate.setPrimernombre(cliente.getPrimernombre());
+	    	clienteToUpdate.setSegundonombre(cliente.getSegundonombre());
+	    	clienteToUpdate.setOtronombre(cliente.getOtronombre());
+	    	clienteToUpdate.setPrimerapellido(cliente.getPrimerapellido());
+	    	clienteToUpdate.setSegundoaepllido(cliente.getSegundoaepllido());
+	    	clienteToUpdate.setOtroapellido(cliente.getOtroapellido());
+	    	clienteToUpdate.setGenero(cliente.getGenero());
+	    	clienteToUpdate.setFechanace(cliente.getFechanace());
+	    	clienteToUpdate.setSegmento(cliente.getSegmento());
+	    	clienteToUpdate.setSueldo(cliente.getSueldo());
+	    	clienteToUpdate.setDpi(cliente.getDpi());
+	    	clienteToUpdate.setCorreo(cliente.getCorreo());
+	    	clienteToUpdate.setTelefono(cliente.getTelefono());
+	    	clienteToUpdate.setDireccion(cliente.getDireccion());	        
+	        return dato.update(clienteToUpdate);
 	   
 		
 	    }else {

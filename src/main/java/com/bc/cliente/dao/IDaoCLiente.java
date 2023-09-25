@@ -5,10 +5,10 @@ import com.bc.cliente.entity.*;
 public interface IDaoCLiente {
 
 	
-		public List<AlumnosBD> findAll();
-		public AlumnosBD save(AlumnosBD alumno);
-		public AlumnosBD update (AlumnosBD alumno);
-		public AlumnosBD findById(int idalumno);
+		public List<ClienteBD> findAll();
+		public ClienteBD save(ClienteBD cliente);
+		public ClienteBD update (ClienteBD cliente);
+		public ClienteBD findById(int idcliente);
 		
 	
 
